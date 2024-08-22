@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #cf6887;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .container {
+            background-color: #dfcdcd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+        }
+
+        input[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        textarea {
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Course Registration Form</h2>
+        <form id="registrationForm">
+            <label for="student_name">Student Name:</label>
+            <input type="text" id="student_name" name="student_name">
+            <span class="error" id="student_name_error"></span>
+
+            <label for="rollno">Roll No:</label>
+            <input type="text" id="rollno" name="rollno">
+            <span class="error" id="rollno_error"></span>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender">
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <span class="error" id="gender_error"></span>
+
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year">
+            <span class="error" id="year_error"></span>
+
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department">
+            <span class="error" id="department_error"></span>
+
+            <label for="section">Section:</label>
+            <input type="text" id="section" name="section">
+            <span class="error" id="section_error"></span>
+
+            <label for="mobile_no">Mobile No:</label>
+            <input type="text" id="mobile_no" name="mobile_no">
+            <span class="error" id="mobile_no_error"></span>
+
+            <label for="email_id">E-Mail ID:</label>
+            <input type="email" id="email_id" name="email_id">
+            <span class="error" id="email_id_error"></span>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address"></textarea>
+            <span class="error" id="address_error"></span>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city">
+            <span class="error" id="city_error"></span>
+
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country">
+            <span class="error" id="country_error"></span>
+
+            <label for="pincode">Pincode:</label>
+            <input type="text" id="pincode" name="pincode">
+            <span class="error" id="pincode_error"></span>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            // Clear previous error messages
+            document.querySelectorAll('.error').forEach(error => error.textContent = '');
+
+            // Validate inputs
+            const validateField = (id, regex, errorMessage) => {
+                const field = document.getElementById(id);
+                const errorField = document.getElementById(id + '_error');
+                if (!field.value) {
+                    errorField.textContent = 'This field is required.';
+                    isValid = false;
+                } else if (regex && !regex.test(field.value)) {
+                    errorField.textContent = errorMessage;
+                    isValid = false;
+                }
+            };
+
+            validateField('student_name', /^[A-Za-z\s]+$/, 'Invalid name.');
+            validateField('rollno', /^[0-9]{1,10}$/, 'Invalid roll number.');
+            validateField('year', /^[1-4]$/, 'Year should be between 1 and 4.');
+            validateField('department', /^[A-Za-z\s]+$/, 'Invalid department.');
+            validateField('section', /^[A-Za-z\s]+$/, 'Invalid section.');
+            validateField('mobile_no', /^[0-9]{10}$/, 'Mobile number must be 10 digits.');
+            validateField('email_id', /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format.');
+            validateField('address');
+            validateField('city', /^[A-Za-z\s]+$/, 'Invalid city.');
+            validateField('country', /^[A-Za-z\s]+$/, 'Invalid country.');
+            validateField('pincode', /^[0-9]{6}$/, 'Pincode must be 6 digits.');
+
+            if (isValid) {
+                // Form is valid, you can submit it or perform other actions
+                alert('Form submitted successfully!');
+            }
+        });
+    </script>
+</body>
+</html>
